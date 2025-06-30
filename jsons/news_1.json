@@ -1,0 +1,22 @@
+{
+  "result": "success",
+  "data": {
+    "title": "Some news",
+    "items": [
+      {
+        "id": 1,
+        "title": "Спортивная новость",
+        "type": "sport",
+        "created": "2023-01-01T11:12:13:123",
+        "specificPropertyForSport": "Англия - Франция"
+      },
+      {
+        "id": 2,
+        "title": "Научная новость",
+        "type": "science",
+        "created": "2023-03-02T10:09:21:321",
+        "specific_property_for_science": "https://avatars.dzeninfra.ru/get-zen_doc/58826/pub_61448c8d60d6b95713361fe5_61448cdae52b9105ca86c4bc/scale_1200"
+      }
+    ]
+  }
+}

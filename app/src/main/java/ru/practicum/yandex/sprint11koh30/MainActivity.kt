@@ -70,7 +70,9 @@ class MainActivity : AppCompatActivity() {
         serverApi.getNews1().enqueue(object : Callback<NewsResponse> {
             override fun onResponse(call: Call<NewsResponse>, response: Response<NewsResponse>) {
                 Log.i(TAG, "onResponse: ${response.body()}")
-                adapter.items = response.body()?.data?.items ?: emptyList()
+                adapter.items = response.body()?.data?.items?.filter {
+                    it !is NewsItem.Unknown
+                } ?: emptyList()
             }
 
             override fun onFailure(call: Call<NewsResponse>, t: Throwable) {
@@ -95,6 +97,6 @@ class MainActivity : AppCompatActivity() {
 interface Sprint11ServerApi {
 
 
-    @GET("main/jsons/news_1.json")
+    @GET("main/jsons/news_2.json")
     fun getNews1(): Call<NewsResponse>
 }

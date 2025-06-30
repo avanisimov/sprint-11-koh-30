@@ -44,6 +44,21 @@ sealed class NewsItem {
         @SerializedName("specific_property_for_science")
         val specificPropertyForScience: String,
     ):NewsItem()
+
+    data class Social(
+        override val id: String,
+        override val title: String,
+        override val type: String,
+        override val created: Date,
+        val content: String,
+    ):NewsItem()
+
+    data class Unknown(
+        override val id: String,
+        override val title: String,
+        override val type: String,
+        override val created: Date,
+    ):NewsItem()
 }
 
 
@@ -57,7 +72,8 @@ class NewsItemTypeAdapter: JsonDeserializer<NewsItem> {
         return when (typeStr) {
             "sport" -> context.deserialize(json, NewsItem.Sport::class.java)
             "science" -> context.deserialize(json, NewsItem.Science::class.java)
-            else -> throw IllegalStateException("There is no class for $typeStr")
+            "social" -> context.deserialize(json, NewsItem.Social::class.java)
+            else -> context.deserialize(json, NewsItem.Unknown::class.java)
         }
     }
 

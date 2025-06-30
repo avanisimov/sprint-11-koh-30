@@ -45,6 +45,7 @@ class NewsItemViewHolder(
     private val title: TextView = itemView.findViewById(R.id.title)
     private val created: TextView = itemView.findViewById(R.id.created)
     private val sportTeams: TextView = itemView.findViewById(R.id.sport_teams)
+    private val socialContent: TextView = itemView.findViewById(R.id.social_content)
     private val scienceImg: ImageView = itemView.findViewById(R.id.science_img)
 
     fun bind(item: NewsItem) {
@@ -65,6 +66,16 @@ class NewsItemViewHolder(
             is NewsItem.Sport -> {
                 sportTeams.visibility = View.VISIBLE
                 sportTeams.text = item.specificPropertyForSport
+            }
+
+            is NewsItem.Unknown ->{
+                sportTeams.visibility = View.GONE
+                scienceImg.visibility = View.GONE
+            }
+
+            is NewsItem.Social -> {
+                socialContent.visibility = View.VISIBLE
+                socialContent.text = item.content
             }
         }
 

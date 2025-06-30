@@ -15,7 +15,9 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import java.text.SimpleDateFormat
 import java.util.Date
+import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
 
@@ -56,12 +58,15 @@ class MainActivity : AppCompatActivity() {
                 GsonConverterFactory.create(
                     GsonBuilder()
                         .registerTypeAdapter(Date::class.java, CustomDateTypeAdapter())
+                        .registerTypeAdapter(NewsItem::class.java, NewsItemTypeAdapter())
                         .create()
                 )
             )
             .build()
         val serverApi = retrofit.create(Sprint11ServerApi::class.java)
 
+
+//        val response = serverApi.getNews1().execute()
         serverApi.getNews1().enqueue(object : Callback<NewsResponse> {
             override fun onResponse(call: Call<NewsResponse>, response: Response<NewsResponse>) {
                 Log.i(TAG, "onResponse: ${response.body()}")
@@ -71,8 +76,14 @@ class MainActivity : AppCompatActivity() {
             override fun onFailure(call: Call<NewsResponse>, t: Throwable) {
                 Log.e(TAG, "onFailure: $t")
             }
-
         })
+        val durationInMillis = (5 * 60 + 32) * 1000L
+        Log.d(
+            "DURATION",
+            "durationInMillis -> ${
+                SimpleDateFormat("mm:ss", Locale.getDefault()).format(durationInMillis)
+            }"
+        )
 
     }
 
